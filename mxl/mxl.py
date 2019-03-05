@@ -7,8 +7,10 @@ import re
 import enum
 from bs4 import BeautifulSoup
 from .pastebin import PasteBin
-import mxl.constants
-import mxl.dclasses
+from .constants import SU_ITEMS, SSU_ITEMS, SSSU_ITEMS, AMULETS, RINGS, JEWELS,\
+                       MOS, RUNEWORDS, IGNORED_ITEMS, SHRINE_VESSELS,\
+                       VESSEL_TO_SHRINE, QUIVERS, CHARMS, TROPHIES
+from .dclasses import ItemDump
 
 class LoginError(enum.Enum):
     NONE = 0
@@ -328,7 +330,7 @@ class MXL(commands.Cog):
             await ctx.send(f'Armory account hasn\'t been configured yet. Configure one using `{ctx.prefix}mxl config armory_username/armory_password`.')
             return
 
-        items = mxl.dclasses.ItemDump()
+        items = ItemDump()
         for character in characters:
             character_response = requests.get(self.armory_character_endpoint.format(character), cookies=config['armory_cookies'])
             dom = BeautifulSoup(character_response.text, 'html.parser')
@@ -410,7 +412,7 @@ class MXL(commands.Cog):
             item_name = item.span.text
             set_match = re.search('\[([^\]]+)', item.span.text)
 
-            if item_name in mxl.constants.IGNORED_ITEMS:
+            if item_name in IGNORED_ITEMS:
                 continue
 
             if set_match:
@@ -419,7 +421,7 @@ class MXL(commands.Cog):
                 items.increment_set_item(set_name, item_name, character)
                 continue
 
-            if item_name in mxl.constants.SU_ITEMS:
+            if item_name in SU_ITEMS:
                 items.increment_su(item_name, character)
                 continue
 
@@ -431,35 +433,35 @@ class MXL(commands.Cog):
                 item.increment_other('Jewel', character)
                 continue
 
-            if item_name in mxl.constants.SSU_ITEMS:
+            if item_name in SSU_ITEMS:
                 items.increment_ssu(item_name, character)
                 continue
 
-            if item_name in mxl.constants.SSSU_ITEMS:
+            if item_name in SSSU_ITEMS:
                 items.increment_sssu(item_name, character)
                 continue
 
-            if item_name in mxl.constants.RUNEWORDS:
+            if item_name in RUNEWORDS:
                 items.increment_rw(item_name, character)
                 continue
 
-            if item_name in mxl.constants.AMULETS:
+            if item_name in AMULETS:
                 items.increment_amulet(item_name, character)
                 continue
 
-            if item_name in mxl.constants.RINGS:
+            if item_name in RINGS:
                 items.increment_ring(item_name, character)
                 continue
 
-            if item_name in mxl.constants.JEWELS:
+            if item_name in JEWELS:
                 items.increment_jewel(item_name, character)
                 continue
 
-            if item_name in mxl.constants.QUIVERS:
+            if item_name in QUIVERS:
                 items.increment_quiver(item_name, character)
                 continue
 
-            if item_name in mxl.constants.MOS:
+            if item_name in MOS:
                 items.increment_mo(item_name, character)
                 continue
 
@@ -472,7 +474,7 @@ class MXL(commands.Cog):
                 items.increment_shrine_base(item_name, character)
                 continue
 
-            if item_name in mxl.constants.CHARMS:
+            if item_name in CHARMS:
                 items.increment_charm(item_name, character)
                 continue
 
@@ -483,9 +485,9 @@ class MXL(commands.Cog):
                 items.increment_shrine(shrine_name, character, amount)
                 continue
 
-            if item_name in mxl.constants.SHRINE_VESSELS:
+            if item_name in SHRINE_VESSELS:
                 vessel_amount = int((re.search('Quantity: ([0-9]+)', item.find(class_='color-grey').text)).group(1))
-                shrine_name = mxl.constants.VESSEL_TO_SHRINE[item_name]
+                shrine_name = VESSEL_TO_SHRINE[item_name]
                 items.increment_shrine(shrine_name, character, vessel_amount)
                 continue
 
@@ -500,7 +502,7 @@ class MXL(commands.Cog):
                 items.increment_other('Arcane Crystal', character, amount)
                 continue
 
-            if item_name in mxl.constants.TROPHIES:
+            if item_name in TROPHIES:
                 items.increment_trophy(item_name, character)
                 continue
 
