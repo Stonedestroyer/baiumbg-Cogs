@@ -345,7 +345,7 @@ class MXL(commands.Cog):
                 continue
 
             item_dump = dom.find_all(class_='item-wrapper')
-            self._scrape_items(item_dump, items)
+            self._scrape_items(item_dump, items, character)
 
         if not items:
             await ctx.send('No items found.')
@@ -402,7 +402,7 @@ class MXL(commands.Cog):
 
         return True, None
 
-    def _scrape_items(self, item_dump, items):
+    def _scrape_items(self, item_dump, items, character):
         for item in item_dump:
             if item.th:
                 continue
@@ -416,95 +416,95 @@ class MXL(commands.Cog):
             if set_match:
                 set_name = set_match.group(1)
                 item_name = item_name.split('[')[0].strip()
-                items.increment_set_item(set_name, item_name)
+                items.increment_set_item(set_name, item_name, character)
                 continue
 
             if item_name in mxl.constants.SU_ITEMS:
-                items.increment_su(item_name)
+                items.increment_su(item_name, character)
                 continue
 
             if 'Hanfod' in item_name:
-                items.increment_su('Hanfod Tân')
+                items.increment_su('Hanfod Tân', character)
                 continue
 
             if item_name == 'Jewel':
-                item.increment_other('Jewel')
+                item.increment_other('Jewel', character)
                 continue
 
             if item_name in mxl.constants.SSU_ITEMS:
-                items.increment_ssu(item_name)
+                items.increment_ssu(item_name, character)
                 continue
 
             if item_name in mxl.constants.SSSU_ITEMS:
-                items.increment_sssu(item_name)
+                items.increment_sssu(item_name, character)
                 continue
 
             if item_name in mxl.constants.RUNEWORDS:
-                items.increment_rw(item_name)
+                items.increment_rw(item_name, character)
                 continue
 
             if item_name in mxl.constants.AMULETS:
-                items.increment_amulet(item_name)
+                items.increment_amulet(item_name, character)
                 continue
 
             if item_name in mxl.constants.RINGS:
-                items.increment_ring(item_name)
+                items.increment_ring(item_name, character)
                 continue
 
             if item_name in mxl.constants.JEWELS:
-                items.increment_jewel(item_name)
+                items.increment_jewel(item_name, character)
                 continue
 
             if item_name in mxl.constants.QUIVERS:
-                items.increment_quiver(item_name)
+                items.increment_quiver(item_name, character)
                 continue
 
             if item_name in mxl.constants.MOS:
-                items.increment_mo(item_name)
+                items.increment_mo(item_name, character)
                 continue
 
             if item.span['class'][0] == 'color-white' or item.span['class'][0] == 'color-blue':
                 base_name = item_name + ' [eth]' if '[ethereal]' in item.text else ''.join(item_name.split('Superior '))
-                items.increment_rw_base(base_name)
+                items.increment_rw_base(base_name, character)
                 continue
 
             if item.span['class'][0] == 'color-yellow':
-                items.increment_shrine_base(item_name)
+                items.increment_shrine_base(item_name, character)
                 continue
 
             if item_name in mxl.constants.CHARMS:
-                items.increment_charm(item_name)
+                items.increment_charm(item_name, character)
                 continue
 
             shrine_match = re.search('Shrine \(([^\)]+)', item_name)
             if shrine_match:
                 shrine_name = item_name.split('(')[0].strip()
                 amount = int(shrine_match.group(1)) / 10
-                items.increment_shrine(shrine_name, amount)
+                items.increment_shrine(shrine_name, character, amount)
                 continue
 
             if item_name in mxl.constants.SHRINE_VESSELS:
                 vessel_amount = int((re.search('Quantity: ([0-9]+)', item.find(class_='color-grey').text)).group(1))
                 shrine_name = mxl.constants.VESSEL_TO_SHRINE[item_name]
-                items.increment_shrine(shrine_name, vessel_amount)
+                items.increment_shrine(shrine_name, character, vessel_amount)
                 continue
 
             if item_name == 'Arcane Cluster':
                 crystals_amount = int((re.search('Quantity: ([0-9]+)', item.find(class_='color-grey').text)).group(1))
-                items.increment_other('Arcane Crystal', crystals_amount)
+                items.increment_other('Arcane Crystal', character, crystals_amount)
                 continue
 
             AC_shards_match = re.search('Shards \(([^\)]+)', item_name)
             if AC_shards_match:
                 amount = int(AC_shards_match.group(1)) / 5
-                items.increment_other('Arcane Crystal', amount)
+                items.increment_other('Arcane Crystal', character, amount)
                 continue
 
             if item_name in mxl.constants.TROPHIES:
-                items.increment_trophy(item_name)
+                items.increment_trophy(item_name, character)
                 continue
 
-            items.increment_other(item_name)
+            items.increment_other(item_name, character)
 
     async def _create_pastebin(self, text, title=None):
         api_key = await self._config.pastebin_api_key()

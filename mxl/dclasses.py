@@ -4,38 +4,39 @@ import mxl.constants
 @dataclasses.dataclass
 class Item:
     name: str
-    characters: [str]
+    characters: set = set()
     amount: float = 0
 
     def __hash__(self):
         return hash(self.name)
 
-    def increment(self, amount = 1):
+    def increment(self, character, amount = 1):
         self.amount += amount
+        self.characters.add(character)
 
 @dataclasses.dataclass
 class Set:
     name: str
-    items: {str: Item}
+    items: {str: Item} = {}
 
 @dataclasses.dataclass
 class ItemDump:
-    sets: {str: Set}
-    su: {str: Item}
-    ssu: {str: Item}
-    sssu: {str: Item}
-    amulets: {str: Item}
-    rings: {str: Item}
-    jewels: {str: Item}
-    mos: {str: Item}
-    quivers: {str: Item}
-    runewords: {str: Item}
-    rw_bases: {str: Item}
-    shrine_bases: {str: Item}
-    charms: {str: Item}
-    trophies: {str: Item}
-    shrines: {str: Item}
-    other: {str: Item}
+    sets: {str: Set} = {}
+    su: {str: Item} = {}
+    ssu: {str: Item} = {}
+    sssu: {str: Item} = {}
+    amulets: {str: Item} = {}
+    rings: {str: Item} = {}
+    jewels: {str: Item} = {}
+    mos: {str: Item} = {}
+    quivers: {str: Item} = {}
+    runewords: {str: Item} = {}
+    rw_bases: {str: Item} = {}
+    shrine_bases: {str: Item} = {}
+    charms: {str: Item} = {}
+    trophies: {str: Item} = {}
+    shrines: {str: Item} = {}
+    other: {str: Item} = {}
 
     def __bool__(self):
         return self.sets or self.su or self.ssu or self.sssu or self.amulets or \
@@ -43,53 +44,53 @@ class ItemDump:
                self.runewords or self.rw_bases or self.shrine_bases or \
                self.charms or self.trophies or self.shrines or self.other
 
-    def increment_set_item(self, set_name, item_name):
-        self.sets.setdefault(set_name, Set(name=set_name)).items.setdefault(item_name, Item(name=item_name)).increment()
+    def increment_set_item(self, set_name, item_name, character):
+        self.sets.setdefault(set_name, Set(name=set_name)).items.setdefault(item_name, Item(name=item_name)).increment(character)
 
-    def increment_su(self, item_name):
-        self.su.setdefault(item_name, Item(name=item_name)).increment()
+    def increment_su(self, item_name, character):
+        self.su.setdefault(item_name, Item(name=item_name)).increment(character)
 
-    def increment_ssu(self, item_name):
-        self.ssu.setdefault(item_name, Item(name=item_name)).increment()
+    def increment_ssu(self, item_name, character):
+        self.ssu.setdefault(item_name, Item(name=item_name)).increment(character)
 
-    def increment_sssu(self, item_name):
-        self.sssu.setdefault(item_name, Item(name=item_name)).increment()
+    def increment_sssu(self, item_name, character):
+        self.sssu.setdefault(item_name, Item(name=item_name)).increment(character)
 
-    def increment_amulet(self, item_name):
-        self.amulets.setdefault(item_name, Item(name=item_name)).increment()
+    def increment_amulet(self, item_name, character):
+        self.amulets.setdefault(item_name, Item(name=item_name)).increment(character)
 
-    def increment_ring(self, item_name):
-        self.rings.setdefault(item_name, Item(name=item_name)).increment()
+    def increment_ring(self, item_name, character):
+        self.rings.setdefault(item_name, Item(name=item_name)).increment(character)
 
-    def increment_jewel(self, item_name):
-        self.jewels.setdefault(item_name, Item(name=item_name)).increment()
+    def increment_jewel(self, item_name, character):
+        self.jewels.setdefault(item_name, Item(name=item_name)).increment(character)
 
-    def increment_mo(self, item_name):
-        self.mos.setdefault(item_name, Item(name=item_name)).increment()
+    def increment_mo(self, item_name, character):
+        self.mos.setdefault(item_name, Item(name=item_name)).increment(character)
 
-    def increment_quiver(self, item_name):
-        self.quivers.setdefault(item_name, Item(name=item_name)).increment()
+    def increment_quiver(self, item_name, character):
+        self.quivers.setdefault(item_name, Item(name=item_name)).increment(character)
 
-    def increment_rw(self, item_name):
-        self.runewords.setdefault(item_name, Item(name=item_name)).increment()
+    def increment_rw(self, item_name, character):
+        self.runewords.setdefault(item_name, Item(name=item_name)).increment(character)
 
-    def increment_rw_base(self, item_name):
-        self.rw_bases.setdefault(item_name, Item(name=item_name)).increment()
+    def increment_rw_base(self, item_name, character):
+        self.rw_bases.setdefault(item_name, Item(name=item_name)).increment(character)
 
-    def increment_shrine_base(self, item_name):
-        self.shrine_bases.setdefault(item_name, Item(name=item_name)).increment()
+    def increment_shrine_base(self, item_name, character):
+        self.shrine_bases.setdefault(item_name, Item(name=item_name)).increment(character)
 
-    def increment_charm(self, item_name):
-        self.charms.setdefault(item_name, Item(name=item_name)).increment()
+    def increment_charm(self, item_name, character):
+        self.charms.setdefault(item_name, Item(name=item_name)).increment(character)
 
-    def increment_trophy(self, item_name):
-        self.trophies.setdefault(item_name, Item(name=item_name)).increment()
+    def increment_trophy(self, item_name, character):
+        self.trophies.setdefault(item_name, Item(name=item_name)).increment(character)
 
-    def increment_shrine(self, item_name, amount = 1):
-        self.shrines.setdefault(item_name, Item(name=item_name)).increment(amount)
+    def increment_shrine(self, item_name, character, amount = 1):
+        self.shrines.setdefault(item_name, Item(name=item_name)).increment(character, amount)
 
-    def increment_other(self, item_name, amount = 1):
-        self.other.setdefault(item_name, Item(name=item_name)).increment(amount)
+    def increment_other(self, item_name, character, amount = 1):
+        self.other.setdefault(item_name, Item(name=item_name)).increment(character, amount)
 
     def to_trade_post(self):
         items_section = ''
