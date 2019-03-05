@@ -1,6 +1,6 @@
 import dataclasses
 import mxl.constants
-from typing import Set
+from typing import Set, Dict
 
 @dataclasses.dataclass
 class Item:
@@ -18,26 +18,26 @@ class Item:
 @dataclasses.dataclass
 class Set:
     name: str
-    items: {str: Item} = {}
+    items: Dict[str, Item] = dataclasses.field(default_factory=dict)
 
 @dataclasses.dataclass
 class ItemDump:
-    sets: {str: Set} = {}
-    su: {str: Item} = {}
-    ssu: {str: Item} = {}
-    sssu: {str: Item} = {}
-    amulets: {str: Item} = {}
-    rings: {str: Item} = {}
-    jewels: {str: Item} = {}
-    mos: {str: Item} = {}
-    quivers: {str: Item} = {}
-    runewords: {str: Item} = {}
-    rw_bases: {str: Item} = {}
-    shrine_bases: {str: Item} = {}
-    charms: {str: Item} = {}
-    trophies: {str: Item} = {}
-    shrines: {str: Item} = {}
-    other: {str: Item} = {}
+    sets: Dict[str, Set] = dataclasses.field(default_factory=dict)
+    su: Dict[str, Item] = dataclasses.field(default_factory=dict)
+    ssu: Dict[str, Item] = dataclasses.field(default_factory=dict)
+    sssu: Dict[str, Item] = dataclasses.field(default_factory=dict)
+    amulets: Dict[str, Item] = dataclasses.field(default_factory=dict)
+    rings: Dict[str, Item] = dataclasses.field(default_factory=dict)
+    jewels: Dict[str, Item] = dataclasses.field(default_factory=dict)
+    mos: Dict[str, Item] = dataclasses.field(default_factory=dict)
+    quivers: Dict[str, Item] = dataclasses.field(default_factory=dict)
+    runewords: Dict[str, Item] = dataclasses.field(default_factory=dict)
+    rw_bases: Dict[str, Item] = dataclasses.field(default_factory=dict)
+    shrine_bases: Dict[str, Item] = dataclasses.field(default_factory=dict)
+    charms: Dict[str, Item] = dataclasses.field(default_factory=dict)
+    trophies: Dict[str, Item] = dataclasses.field(default_factory=dict)
+    shrines: Dict[str, Item] = dataclasses.field(default_factory=dict)
+    other: Dict[str, Item] = dataclasses.field(default_factory=dict)
 
     def __bool__(self):
         return self.sets or self.su or self.ssu or self.sssu or self.amulets or \
