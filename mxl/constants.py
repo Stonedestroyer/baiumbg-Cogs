@@ -477,7 +477,7 @@ CHARMS = [
     'Crystalline Flame Medallion',
     'Soul of Kabraxis',
     'Eternal Bone Pile',
-    'Book of Lies',
+    'The Book of Lies',
     'Dragon Claw',
     'The Ancient Repositories',
     'Xazax\'s Illusion',
@@ -495,7 +495,7 @@ CHARMS = [
     'Corrupted Wormhole',
     'Demonsbane',
     'Lylia\'s Curse',
-    'Cold Fusion Schematics',
+    'Cold Fusion Schematics'
 ]
 
 TROPHIES = [
