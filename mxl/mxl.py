@@ -430,7 +430,7 @@ class MXL(commands.Cog):
                 continue
 
             if item_name == 'Jewel':
-                item.increment_other('Jewel', character)
+                items.increment_other('Jewel', character)
                 continue
 
             if item_name in SSU_ITEMS:
