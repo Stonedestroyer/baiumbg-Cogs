@@ -43,10 +43,10 @@ class ItemDump:
     other: Dict[str, Item] = dataclasses.field(default_factory=dict)
 
     def __bool__(self):
-        return self.sets or self.su or self.ssu or self.sssu or self.amulets or \
+        return bool(self.sets or self.su or self.ssu or self.sssu or self.amulets or \
                self.rings or self.jewels or self.mos or self.quivers or \
                self.runewords or self.rw_bases or self.shrine_bases or \
-               self.charms or self.trophies or self.shrines or self.other
+               self.charms or self.trophies or self.shrines or self.other)
 
     def increment_set_item(self, set_name, item_name, character):
         self.sets.setdefault(set_name, Set(name=set_name)).items.setdefault(item_name, Item(name=item_name)).increment(character)
