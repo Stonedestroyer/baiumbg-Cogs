@@ -1,5 +1,5 @@
 import dataclasses
-import constants
+import mxl.constants
 
 @dataclasses.dataclass
 class Item:

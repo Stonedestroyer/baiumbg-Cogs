@@ -7,8 +7,8 @@ import re
 import enum
 from bs4 import BeautifulSoup
 from .pastebin import PasteBin
-import constants
-import dclasses
+import mxl.constants
+import mxl.dclasses
 
 class LoginError(enum.Enum):
     NONE = 0
