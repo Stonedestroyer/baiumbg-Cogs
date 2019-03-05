@@ -187,7 +187,7 @@ class ItemDump:
 
         trophies_str = ''
         for item in self.trophies.values():
-            trophies_str += f'[color=#FF7F50]{item.name}[/color] x{item.amount}\n' if item.amount > 1 else f'[color=#FFFF00]{item.name}[/color]\n'
+            trophies_str += f'[color=#FF7F50]{item.name}[/color] x{item.amount}\n' if item.amount > 1 else f'[color=#FF7F50]{item.name}[/color]\n'
 
         if trophies_str:
             items_section += TRADE_POST_TROPHIES_SECTION.format(items = trophies_str)
