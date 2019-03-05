@@ -3,12 +3,12 @@ from .constants import TRADE_POST_SETS_SECTION, TRADE_POST_SU_SECTION, TRADE_POS
                        TRADE_POST_SSSU_SECTION, TRADE_POST_RUNEWORDS_SECTION, TRADE_POST_RAQMOJ_SECTION,\
                        TRADE_POST_BASES_SECTION, TRADE_POST_CHARMS_SECTION, TRADE_POST_TROPHIES_SECTION,\
                        TRADE_POST_MISC_SECTION, TRADE_POST_TEMPLATE
-from typing import Set, Dict
+from typing import Dict
 
 @dataclasses.dataclass
 class Item:
     name: str
-    characters: Set[str] = dataclasses.field(default_factory=set)
+    characters: set = dataclasses.field(default_factory=set)
     amount: float = 0
 
     def __hash__(self):
