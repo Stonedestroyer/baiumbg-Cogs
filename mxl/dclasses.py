@@ -1,10 +1,11 @@
 import dataclasses
 import mxl.constants
+from typing import Set
 
 @dataclasses.dataclass
 class Item:
     name: str
-    characters: set = set()
+    characters: Set[str] = dataclasses.field(default_factory=set)
     amount: float = 0
 
     def __hash__(self):
