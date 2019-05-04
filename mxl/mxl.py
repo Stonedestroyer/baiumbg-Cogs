@@ -561,6 +561,11 @@ class MXL(commands.Cog):
 
     def _scrape_items(self, item_dump, items, character, user_config):
         for item in item_dump:
+            # For multi-line charm names
+            # Note: May need updating in the near future
+            if item.font.br:
+                item.font.br.extract()
+
             item_name = item.font.text
             set_match = re.search('\[([^\]]+)', item.font.text)
 
@@ -652,6 +657,11 @@ class MXL(commands.Cog):
                 crystals_amount = int((re.search('Quantity: ([0-9]+)', item.find(class_='color-grey').text)).group(1))
                 items.increment_other('Arcane Crystal', character, item.parent.parent, crystals_amount)
                 continue
+
+            # TODO: Update when Aahz fixes runestone formatting
+            if item_name == ')':
+                item_name = f'Depleted Riftstone ({item.span.contents[1].text})'
+                items.increment_other(item_name, character, item.parent.parent)
 
             AC_shards_match = re.search('Shards \(([^\)]+)', item_name)
             if AC_shards_match:

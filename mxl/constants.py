@@ -164,7 +164,10 @@ SU_ITEMS = [
     'Gravetalon',
     'Leah\'s Vision',
     'Starhawk',
-    'Maleficence'
+    'Maleficence',
+    'Grim Visor',
+    'Iron Shard',
+    'King\'s Desire'
 ]
 
 SSU_ITEMS = [
@@ -315,7 +318,9 @@ SSU_ITEMS = [
     'Atanna\'s Key',
     'Galeona\'s Lash',
     'Steel Punisher',
-    'Despondence'
+    'Despondence',
+    'Smokeless Fire',
+    'Malevolence'
 ]
 
 SSSU_ITEMS = [
@@ -324,7 +329,8 @@ SSSU_ITEMS = [
     'The Point of No Return',
     'Storm Blade',
     'The Searing Heat',
-    'Desolation'
+    'Desolation',
+    'The Worshipper'
 ]
 
 SETS = {
