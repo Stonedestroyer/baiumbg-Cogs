@@ -623,7 +623,7 @@ class MXL(commands.Cog):
                 continue
 
             if item.span['class'][0] == 'color-white' or item.span['class'][0] == 'color-blue':
-                base_name = item_name + ' [eth]' if '[ethereal]' in item.text else ''.join(item_name.split('Superior '))
+                base_name = item_name + ' [eth]' if 'Ethereal' in item.text else ''.join(item_name.split('Superior '))
                 items.increment_rw_base(base_name, character, item.parent.parent)
                 continue
 

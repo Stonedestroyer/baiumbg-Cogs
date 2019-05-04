@@ -795,7 +795,14 @@ IGNORED_ITEMS = [
     'Signet of Gold',
     'Greater Signet of Gold',
     'Large Axe (1)',
-    'Quilted Armor (1)'
+    'Quilted Armor (1)',
+    'Buckler (1)',
+    'Hand Axe (1)',
+    'Javelin (1)',
+    'Katar (1)',
+    'Short Staff (1)',
+    'Short Sword (1)',
+    'Wand (1)'
 ]
 
 RUNEWORDS = [
@@ -1344,7 +1351,11 @@ ORANGE_IGNORED_ITEMS = [
     'Emblem of Suffering',
     'Emblem of Terror',
     'Mark of Infusion',
-    'Belladonna Extract'
+    'Belladonna Extract',
+    'Ancient Book',
+    'Cycle',
+    'Oil of Conjuration',
+    'Sunless Crystal Bird'
 ]
 
 TRADE_POST_SETS_SECTION = '''[color=#00FF00][size=24]Sets[/size][/color]
