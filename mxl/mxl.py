@@ -573,10 +573,10 @@ class MXL(commands.Cog):
                 items.increment_set_item(set_name, item_name, character, item.parent.parent)
                 continue
 
-            if item.span['class'][0] == 'color-green' and item_name in SETS.keys():
-                set_name = SETS[item_name]
-                items.increment_set_item(set_name, item_name, character, item.parent.parent)
-                continue
+            # if item.span['class'][0] == 'color-green' and item_name in SETS.keys():
+            #     set_name = SETS[item_name]
+            #     items.increment_set_item(set_name, item_name, character, item.parent.parent)
+            #     continue
 
             if item_name in SU_ITEMS:
                 items.increment_su(item_name, character, item.parent.parent)
