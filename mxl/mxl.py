@@ -8,7 +8,7 @@ import enum
 import flickrapi
 from bs4 import BeautifulSoup
 from .pastebin import PasteBin
-from .constants import SU_ITEMS, SSU_ITEMS, SSSU_ITEMS, AMULETS, RINGS, JEWELS,\
+from .constants import SU_ITEMS, SSU_ITEMS, SSSU_ITEMS, SETS, AMULETS, RINGS, JEWELS,\
                        MOS, RUNEWORDS, IGNORED_ITEMS, SHRINE_VESSELS,\
                        VESSEL_TO_SHRINE, QUIVERS, CHARMS, TROPHIES, ORANGE_IGNORED_ITEMS
 from .dclasses import ItemDump, PostGenerationErrors
@@ -571,6 +571,11 @@ class MXL(commands.Cog):
                 set_name = set_match.group(1)
                 item_name = item_name.split('[')[0].strip()
                 items.increment_set_item(set_name, item_name, character, item.parent.parent)
+                continue
+
+            if item.span['class'][0] == 'color-green' and item_name in SETS.keys():
+                set_name = SETS[item_name]
+                items.increment_set_item(set_name, item_name, characterm item.parent.parent)
                 continue
 
             if item_name in SU_ITEMS:
