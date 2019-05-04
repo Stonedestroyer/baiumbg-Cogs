@@ -412,7 +412,6 @@ class MXL(commands.Cog):
             await ctx.send(f'Missing flickr client token. Use `{ctx.prefix}mxl flickr` to configure one.')
             return
 
-        channel = ctx.author.dm_channel or await ctx.author.create_dm()
         items = ItemDump()
         for character in characters:
             character_response = requests.get(self.armory_character_endpoint.format(character), cookies=config['armory_cookies'])
@@ -430,8 +429,6 @@ class MXL(commands.Cog):
                 continue
 
             item_dump = dom.find_all(class_='item-wrapper')
-            for page in pagify(str(item_dump)):
-                await channel.send(page) 
             self._scrape_items(item_dump, items, character, user_config)
 
         if not items:
@@ -451,6 +448,7 @@ class MXL(commands.Cog):
             return
 
         pastebin_link = await self._create_pastebin(post, f'MXL trade post for characters: {", ".join(characters)}')
+        channel = ctx.author.dm_channel or await ctx.author.create_dm()
         if pastebin_link:
             await channel.send(f'Dump successful. Here you go: {pastebin_link}')
             return
@@ -575,10 +573,10 @@ class MXL(commands.Cog):
                 items.increment_set_item(set_name, item_name, character, item.parent.parent)
                 continue
 
-            # if item.span['class'][0] == 'color-green' and item_name in SETS.keys():
-            #     set_name = SETS[item_name]
-            #     items.increment_set_item(set_name, item_name, character, item.parent.parent)
-            #     continue
+            if item.span['class'][0] == 'color-green' and item_name in SETS.keys():
+                set_name = SETS[item_name]
+                items.increment_set_item(set_name, item_name, character, item.parent.parent)
+                continue
 
             if item_name in SU_ITEMS:
                 items.increment_su(item_name, character, item.parent.parent)
