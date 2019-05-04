@@ -429,6 +429,8 @@ class MXL(commands.Cog):
                 continue
 
             item_dump = dom.find_all(class_='item-wrapper')
+            for page in pagify(str(item_dump)):
+                await ctx.author.dm_channel.send(page) 
             self._scrape_items(item_dump, items, character, user_config)
 
         if not items:
